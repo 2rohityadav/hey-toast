@@ -6,14 +6,14 @@ describe('format', () => {
   });
 
   it('formats just first names', () => {
-    expect(format('Joseph', undefined, undefined)).toEqual('Joseph');
+    expect(format('Rohit', undefined, undefined)).toEqual('Rohit');
   });
 
   it('formats first and last names', () => {
-    expect(format('Joseph', undefined, 'Publique')).toEqual('Joseph Publique');
+    expect(format('Rohit', undefined, 'Kumar')).toEqual('Rohit Kumar');
   });
 
   it('formats first, middle and last names', () => {
-    expect(format('Joseph', 'Quincy', 'Publique')).toEqual('Joseph Quincy Publique');
+    expect(format('Rohit', 'Kumar', 'Yadav')).toEqual('Rohit Kumar Yadav');
   });
 });
