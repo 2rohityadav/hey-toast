@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+    <title>Coolbrains toast notification - web component - Built With Stenciljs</title>
+
+    <script type="module" src="/build/hey-toast.esm.js"></script>
+    <script nomodule src="/build/hey-toast.js"></script>
+  </head>
+  <body>
+    <hey-toast></hey-toast>
+    <button id="showToastSuccess" class="bg-green-700">success</button>
+    <button id="showToastInfo" class="bg-blue-700">info</button>
+    <button id="showToastWearing" class="bg-yellow-700">yellow</button>
+    <button id="showToastDanger" class="bg-red-700">red</button>
+    <script>
+      let heyToast = document.querySelector('hey-toast');
+
+      document.getElementById('showToastSuccess').addEventListener('click', event => {
+        heyToast.Toast({
+          title: 'a',
+          description: 'asuccess message',
+          timeOut: 3000,
+          position: 'top-right',
+          type: 'success',
+        });
+      });
+
+      document.getElementById('showToastInfo').addEventListener('click', event => {
+        heyToast.Toast({
+          title: 'Info',
+          description: 'information message',
+          timeOut: 3000,
+          position: 'top-right',
+          type: 'info',
+        });
+      });
+
+      document.getElementById('showToastWearing').addEventListener('click', event => {
+        heyToast.Toast({
+          title: 'Wearing',
+          description: 'wearing message',
+          timeOut: 3000,
+          position: 'top-right',
+          type: 'warning',
+        });
+      });
+      document.getElementById('showToastDanger').addEventListener('click', event => {
+        heyToast.Toast({
+          title: 'Error',
+          description: 'error message',
+          timeOut: 5000,
+          position: 'top-right',
+          type: 'error',
+        });
+      });
+    </script>
+  </body>
+</html>
