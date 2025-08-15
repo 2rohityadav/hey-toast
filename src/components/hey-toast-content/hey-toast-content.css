@@ -99,9 +99,10 @@
 .close-icon {
   width: 24px;
   height: 24px;
-  fill: #111112;
+  fill: #9ca3af;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: block;
 }
 
 .close-icon:hover {

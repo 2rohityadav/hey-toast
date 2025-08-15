@@ -6,6 +6,7 @@ export interface ToastOptions {
   timeOut?: number;
   position?: string;
   type: string;
+  allowClose?: boolean;
 }
 
 @Component({
@@ -74,8 +75,9 @@ export class HeyToast {
   ];
 
   @Method() async Toast(toast: ToastOptions) {
+    let timeOut = 3000; // Default timeout
     if (toast.timeOut !== undefined && typeof toast.timeOut === 'number') {
-      this.timeOut = toast['timeOut'];
+      timeOut = toast['timeOut'];
     }
     if (toast.position !== undefined && toast.position !== '') {
       this.position = toast['position'];
@@ -85,14 +87,21 @@ export class HeyToast {
     this.rootElement.append(toastContent);
     this.toastContentComponent(toast, toastContent);
 
-    setTimeout(() => {
-      let toastContainer = toastContent.firstElementChild;
-      toastContainer.classList.remove('opacity-100');
-      toastContainer.classList.add('opacity-0');
+    // Only set auto-dismiss timeout if allowClose is not false
+    if (toast.allowClose !== false) {
       setTimeout(() => {
-        toastContent.remove();
-      }, 500);
-    }, this.timeOut);
+        let toastContainer = toastContent.firstElementChild;
+        if (toastContainer) {
+          toastContainer.classList.remove('opacity-100');
+          toastContainer.classList.add('opacity-0');
+          setTimeout(() => {
+            if (toastContent && toastContent.parentNode) {
+              toastContent.remove();
+            }
+          }, 300);
+        }
+      }, timeOut);
+    }
   }
 
   toastContentComponent(toast: ToastOptions, toastContent) {
@@ -102,6 +111,10 @@ export class HeyToast {
 
     if (toast.description !== undefined && toast.description !== '') {
       toastContent.description = toast.description;
+    }
+
+    if (toast.allowClose !== undefined) {
+      toastContent.allowClose = toast.allowClose;
     }
 
     if (toast.type !== undefined && toast.type !== '') {

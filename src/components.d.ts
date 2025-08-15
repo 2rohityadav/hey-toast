@@ -13,6 +13,10 @@ export namespace Components {
     }
     interface HeyToastContent {
         /**
+          * @default true
+         */
+        "allowClose": boolean;
+        /**
           * @default 'success message'
          */
         "description": string;
@@ -51,6 +55,10 @@ declare namespace LocalJSX {
     interface HeyToast {
     }
     interface HeyToastContent {
+        /**
+          * @default true
+         */
+        "allowClose"?: boolean;
         /**
           * @default 'success message'
          */

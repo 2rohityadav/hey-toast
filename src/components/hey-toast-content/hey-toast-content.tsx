@@ -10,23 +10,33 @@ export class HeyToastContent {
   @Prop() toastTitle: string = 'Success';
   @Prop() description: string = 'success message';
   @Prop() type: string = 'success';
+  @Prop() allowClose: boolean = true;
 
   @Prop() typeBgColor: string;
   @Prop() typeTextColor: string;
   @Prop() typeIcon: any;
 
-  closeToast = event => {
-    event.target.parentNode.closest('hey-toast-content').remove();
+  closeToast = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    const toastElement = event.target.closest('hey-toast-content');
+    if (toastElement) {
+      const toastContent = toastElement.querySelector('.toast-content');
+      if (toastContent) {
+        toastContent.classList.add('opacity-0');
+        setTimeout(() =>  toastElement.remove(), 300);
+      } else {
+        toastElement.remove();
+      }
+    }
   };
 
   closeSvgIconPath = () => (
-    <path
-      d="M15 5L5 15M5 5L15 15"
-      stroke="currentColor"
-      stroke-width="1"
-      stroke-linecap="round"
-      stroke-linejoin="round"
-    />
+    <g>
+      <line x1="6" y1="6" x2="18" y2="18" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+      <line x1="18" y1="6" x2="6" y2="18" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+    </g>
   );
 
   buildToast = () => {
@@ -58,7 +68,14 @@ export class HeyToastContent {
         </div>
 
         <div class="close-container">
-          <svg onClick={e => this.closeToast(e)} class="close-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            onClick={e => this.closeToast(e)}
+            class="close-icon"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            role="button"
+            aria-label="Close toast"
+          >
             {this.closeSvgIconPath()}
           </svg>
         </div>
