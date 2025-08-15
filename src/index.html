@@ -3,24 +3,108 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Coolbrains toast notification - web component - Built With Stenciljs</title>
+    <title>Hey Toast - Web Component Demo</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      h1 {
+        color: white;
+        margin-bottom: 10px;
+        font-size: 2.5rem;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      .subtitle {
+        color: rgba(255, 255, 255, 0.8);
+        margin-bottom: 40px;
+        font-size: 1.1rem;
+        text-align: center;
+      }
+
+      .button-grid {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .toast-btn {
+        width: 120px;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-transform: uppercase;
+      }
+
+      .toast-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-success {
+        background: #48bb78;
+        color: white;
+      }
+
+      .btn-info {
+        background: #4299e1;
+        color: white;
+      }
+
+      .btn-warning {
+        background: #ed8936;
+        color: white;
+      }
+
+      .btn-error {
+        background: #f56565;
+        color: white;
+      }
+    </style>
 
     <script type="module" src="/build/hey-toast.esm.js"></script>
     <script nomodule src="/build/hey-toast.js"></script>
   </head>
   <body>
     <hey-toast></hey-toast>
-    <button id="showToastSuccess" class="bg-green-700">success</button>
-    <button id="showToastInfo" class="bg-blue-700">info</button>
-    <button id="showToastWearing" class="bg-yellow-700">yellow</button>
-    <button id="showToastDanger" class="bg-red-700">red</button>
+
+    <h1>Hey Toast</h1>
+    <p class="subtitle">Beautiful toast notifications for your web app</p>
+
+    <div class="button-grid">
+      <button id="showToastSuccess" class="toast-btn btn-success">Success</button>
+      <button id="showToastInfo" class="toast-btn btn-info">Info</button>
+      <button id="showToastWearing" class="toast-btn btn-warning">Warning</button>
+      <button id="showToastDanger" class="toast-btn btn-error">Error</button>
+    </div>
+
     <script>
       let heyToast = document.querySelector('hey-toast');
 
       document.getElementById('showToastSuccess').addEventListener('click', event => {
         heyToast.Toast({
-          title: 'a',
-          description: 'success message',
+          title: 'Success!',
+          description: 'Your action was completed successfully',
           timeOut: 3000,
           position: 'top-center',
           type: 'success',
@@ -30,8 +114,8 @@
 
       document.getElementById('showToastInfo').addEventListener('click', event => {
         heyToast.Toast({
-          title: 'Info',
-          description: 'information message',
+          title: 'Information',
+          description: 'Here\'s some useful information for you',
           timeOut: 3000,
           position: 'bottom-center',
           type: 'info',
@@ -40,17 +124,18 @@
 
       document.getElementById('showToastWearing').addEventListener('click', event => {
         heyToast.Toast({
-          title: 'Wearing',
-          description: 'wearing message',
+          title: 'Warning',
+          description: 'Please be careful with this action',
           timeOut: 3000,
           position: 'top-right',
           type: 'warning',
         });
       });
+
       document.getElementById('showToastDanger').addEventListener('click', event => {
         heyToast.Toast({
           title: 'Error',
-          description: 'error message',
+          description: 'Something went wrong. Please try again.',
           timeOut: 5000,
           position: 'top-right',
           type: 'error',
