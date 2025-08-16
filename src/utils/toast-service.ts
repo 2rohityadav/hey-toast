@@ -13,6 +13,41 @@ export interface ToastConfig {
   allowClose?: boolean;
 }
 
+// Auto-register web components when this module is imported
+const registerWebComponents = async () => {
+  // Only register if not already registered
+  if (customElements.get('hey-toast') && customElements.get('hey-toast-content')) {
+    return;
+  }
+
+  // Try to import web components automatically using dynamic import
+  const paths = [
+    'hey-toast/dist/hey-toast/hey-toast.esm.js',
+    './hey-toast.esm.js',
+    '../hey-toast.esm.js',
+    '/node_modules/hey-toast/dist/hey-toast/hey-toast.esm.js'
+  ];
+
+  let imported = false;
+  for (const path of paths) {
+    try {
+      // Use dynamic import with string path to avoid TypeScript module resolution
+      await import(/* webpackIgnore: true */ path);
+      imported = true;
+      break;
+    } catch (e) {
+      // Continue to next path
+    }
+  }
+
+  if (!imported) {
+    console.warn('Hey Toast: Could not auto-import web components. Please ensure hey-toast is properly installed.');
+  }
+};
+
+// Register components immediately when this module is imported
+registerWebComponents();
+
 export class ToastService {
   private static instance: ToastService;
   private toastElement: any;
@@ -37,7 +72,10 @@ export class ToastService {
     }
   }
 
-  private showToast(title: string, description: string, type: string, options?: ToastOptions) {
+  private async showToast(title: string, description: string, type: string, options?: ToastOptions): Promise<void> {
+    // Ensure components are registered first
+    await registerWebComponents();
+
     if (!this.toastElement) {
       this.initializeToast();
     }

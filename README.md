@@ -21,16 +21,35 @@ This is a toast notification Web Component using Stenciljs.
 npm install hey-toast
 ```
 
-Or use npm cdn:
+### For Local Development (npm link)
+```bash
+# In hey-toast project
+npm run build
+npm link
 
+# In your consuming project
+npm link hey-toast
+```
+
+### CDN Usage
 ```html
 <script type="module" src="https://cdn.jsdelivr.net/npm/hey-toast@1.0.0/dist/hey-toast/hey-toast.esm.js"></script>
 ```
 
+### Nx Angular Project Setup
+```bash
+# Install in Nx workspace
+npm install hey-toast
+
+# That's it! No additional configuration needed
+# Just import and use: import { toast } from 'hey-toast';
+```
+
 ## Usage 💡
 
-The Coolbrains toast Component provides a modern, easy-to-use API:
+The Coolbrains toast Component provides a modern, easy-to-use API with **zero configuration required**:
 
+### ✅ Super Simple Usage
 ```javascript
 import { toast } from 'hey-toast';
 
@@ -46,6 +65,26 @@ toast.success('Success title', 'Success description!', {
   position: 'bottom-center',
   allowClose: false
 });
+```
+
+**That's it!** No manual web component imports or configuration needed. The library auto-registers everything when imported.
+
+### Legacy Manual Setup (No Longer Required)
+
+If you prefer manual control, you can still include the web component script:
+
+```html
+<!-- Add this to your HTML -->
+<script type="module" src="/node_modules/hey-toast/dist/hey-toast/hey-toast.esm.js"></script>
+```
+
+Or import it in your JavaScript:
+```javascript
+// Import web components first
+import 'hey-toast/dist/hey-toast/hey-toast.esm.js';
+import { toast } from 'hey-toast';
+
+toast.success('Success', 'It works!');
 ```
 
 ## Positions 📍
@@ -135,12 +174,19 @@ function MyComponent() {
 }
 ```
 
-#### Angular
+#### Angular 19
 
 ```typescript
+import { Component } from '@angular/core';
 import { toast } from 'hey-toast';
 
-@Component({...})
+@Component({
+  selector: 'app-my-component',
+  template: `
+    <button (click)="showSuccess()">Show Success</button>
+    <button (click)="showWarning()">Show Warning</button>
+  `
+})
 export class MyComponent {
   showSuccess() {
     toast.success('Success', 'Operation completed!');
@@ -152,6 +198,14 @@ export class MyComponent {
     });
   }
 }
+```
+
+**Setup for Angular 19:**
+No additional setup required! Just import and use:
+
+```typescript
+import { toast } from 'hey-toast';
+toast.success('Success', 'It works!');
 ```
 
 #### Vue.js
