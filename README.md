@@ -1,4 +1,4 @@
-# hey-toast 🍞
+# 🥂 hey-toast
 
 Coolbrains Toast Notification web component - Built With Stenciljs ⚡
 
@@ -13,7 +13,7 @@ This is a toast notification Web Component using Stenciljs.
 
 ## Demo 🌐
 
-[Demo](https://heyToast.netlify.app/)
+[Demo](https://demo-heyToast.netlify.app/)
 
 ## Installation 📦
 
@@ -29,29 +29,23 @@ Or use npm cdn:
 
 ## Usage 💡
 
-The Coolbrains toast Component can be used as follows:
-
-```html
-<hey-toast></hey-toast>
-
-<button id="showToastSuccess" class="bg-green-700">Success</button>
-```
+The Coolbrains toast Component provides a modern, easy-to-use API:
 
 ```javascript
-<script>
-let heyToast = document.querySelector('hey-toast');
+import { toast } from 'hey-toast';
 
-document.getElementById('showToastSuccess').addEventListener('click', event => {
-  heyToast.Toast({
-    title: 'Success', // default
-    description: 'success message', // default
-    timeOut: 3000, // default
-    position: 'top-right', // default
-    type: 'success', // default
-    allowClose: true, // default - enables manual close button
-  });
+// Basic usage
+toast.success('Success title', 'Success description!');
+toast.info('Info title', 'Info description');
+toast.warning('Warning title', 'Warning description');
+toast.error('Error title', 'Error description');
+
+// With optional configuration
+toast.success('Success title', 'Success description!', {
+  timeOut: 5000,
+  position: 'bottom-center',
+  allowClose: false
 });
-</script>
 ```
 
 ## Positions 📍
@@ -80,34 +74,26 @@ document.getElementById('showToastSuccess').addEventListener('click', event => {
 
 ```javascript
 {
-  title: 'Toast Title',        // Required - The toast title
-  description: 'Message',      // Required - The toast message
   timeOut: 3000,              // Optional - Auto dismiss time in ms (default: 3000)
   position: 'top-right',      // Optional - Toast position (default: 'top-right')
-  type: 'success',            // Optional - Toast type (default: 'success')
   allowClose: true            // Optional - Show close button (default: true)
 }
 ```
+
+
 
 ## Examples 📝
 
 ### Basic Toast
 
 ```javascript
-heyToast.Toast({
-  title: 'Success',
-  description: 'Operation completed successfully!',
-  type: 'success'
-});
+toast.success('Success title', 'Success description!');
 ```
 
 ### Toast without Manual Close
 
 ```javascript
-heyToast.Toast({
-  title: 'Important Notice',
-  description: 'This toast cannot be manually closed',
-  type: 'warning',
+toast.warning('Important Notice', 'This toast cannot be manually closed', {
   allowClose: false
 });
 ```
@@ -115,17 +101,84 @@ heyToast.Toast({
 ### Custom Position and Timeout
 
 ```javascript
-heyToast.Toast({
-  title: 'Info',
-  description: 'This will appear at bottom center for 5 seconds',
-  type: 'info',
+toast.info('Info title', 'This will appear at bottom center for 5 seconds', {
   position: 'bottom-center',
   timeOut: 5000
 });
 ```
 
+### Framework Examples
+
+#### React
+
+```javascript
+import { toast } from 'hey-toast';
+
+function MyComponent() {
+  const handleSuccess = () => {
+    toast.success('Success', 'Data saved successfully!');
+  };
+
+  const handleError = () => {
+    toast.error('Error', 'Failed to save data', {
+      timeOut: 5000,
+      position: 'top-center'
+    });
+  };
+
+  return (
+    <div>
+      <button onClick={handleSuccess}>Save</button>
+      <button onClick={handleError}>Test Error</button>
+    </div>
+  );
+}
+```
+
+#### Angular
+
+```typescript
+import { toast } from 'hey-toast';
+
+@Component({...})
+export class MyComponent {
+  showSuccess() {
+    toast.success('Success', 'Operation completed!');
+  }
+
+  showWarning() {
+    toast.warning('Warning', 'Please check your input', {
+      allowClose: false
+    });
+  }
+}
+```
+
+#### Vue.js
+
+```javascript
+import { toast } from 'hey-toast';
+
+export default {
+  methods: {
+    showInfo() {
+      toast.info('Info', 'Here is some information');
+    },
+    
+    showCustomToast() {
+      toast.success('Custom', 'Custom configuration', {
+        timeOut: 10000,
+        position: 'bottom-right',
+        allowClose: true
+      });
+    }
+  }
+}
+```
+
 ## Features ✨
 
+- 🚀 **Modern API**: Clean method chaining with `toast.success()`, `toast.error()`, etc.
 - 🎯 **Multiple Positions**: 8 different positioning options
 - 🎨 **4 Toast Types**: Success, Info, Warning, Error
 - ⏱️ **Customizable Timeout**: Set your own auto-dismiss time
@@ -134,3 +187,5 @@ heyToast.Toast({
 - 🎨 **Modern Icons**: Clean SVG icons for each toast type
 - 🖱️ **Manual Close**: Click the X button to close manually (optional)
 - ♿ **Accessibility**: Proper ARIA labels and keyboard support
+- 🔧 **Framework Agnostic**: Works with React, Angular, Vue.js, and vanilla JavaScript
+- 📦 **Zero Dependencies**: Lightweight with no external dependencies

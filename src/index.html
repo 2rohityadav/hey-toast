@@ -3,7 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Hey Toast - Web Component Demo</title>
+    <title>Hey Toast - Modern API Demo</title>
+
+    <!-- Highlight.js for syntax highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
+
+    <!-- Hey Toast Components -->
+    <script type="module" src="/build/hey-toast.esm.js"></script>
+    <script type="module" src="/build/index.esm.js"></script>
+    <script nomodule src="/build/hey-toast.js"></script>
+
     <style>
       * {
         margin: 0;
@@ -13,7 +24,7 @@
 
       body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: #efefea;
         min-height: 100vh;
         display: flex;
         flex-direction: column;
@@ -23,7 +34,7 @@
       }
 
       h1 {
-        color: white;
+        color: #000;
         margin-bottom: 10px;
         font-size: 2.5rem;
         font-weight: 700;
@@ -31,9 +42,26 @@
       }
 
       .subtitle {
-        color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 40px;
+        color: #111112;
+        margin-bottom: 20px;
         font-size: 1.1rem;
+        text-align: center;
+      }
+
+      .api-section {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        padding: 20px;
+        margin: 20px 0;
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .api-title {
+        color: #000;
+        font-size: 1.3rem;
+        font-weight: 600;
+        margin-bottom: 15px;
         text-align: center;
       }
 
@@ -45,7 +73,7 @@
       }
 
       .toast-btn {
-        width: 120px;
+        width: 130px;
         padding: 12px 20px;
         border: none;
         border-radius: 8px;
@@ -56,91 +84,381 @@
         text-transform: uppercase;
       }
 
+      .toast-btn span {
+        font-size: 20px;
+        position: relative;
+        top: 2px;
+        left: 4px;
+      }
+
       .toast-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
       }
 
-      .btn-success {
-        background: #48bb78;
-        color: white;
+      .btn-success { background: #48bb78; color: white; }
+      .btn-info { background: #4299e1; color: white; }
+      .btn-warning { background: #ed8936; color: white; }
+      .btn-error { background: #f56565; color: white; }
+      .btn-custom { background: #9f7aea; color: white; }
+
+      .status {
+        color: #111112;
+        font-size: 0.9rem;
+        text-align: center;
+        margin: 10px 0;
+        padding: 8px;
+        border-radius: 6px;
+        background: rgba(255, 255, 255, 0.1);
       }
 
-      .btn-info {
-        background: #4299e1;
-        color: white;
+      .status.ready {
+        background: rgba(72, 187, 120, 0.2);
+        border: 1px solid rgba(72, 187, 120, 0.3);
       }
 
-      .btn-warning {
-        background: #ed8936;
-        color: white;
+      .status.error {
+        background: rgba(245, 101, 101, 0.2);
+        border: 1px solid rgba(245, 101, 101, 0.3);
       }
 
-      .btn-error {
-        background: #f56565;
+      .code-header {
+        color: #111112;
+        font-size: 1rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      /* Code Editor Styles */
+      .code-editor {
+        background: #1c1c1c;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border: 1px solid #3c3c3c;
+      }
+
+      .editor-header {
+        background: #1c1c1c;
         color: white;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        height: 30px;
+        border-bottom: 1px solid #3c3c3c;
+      }
+
+      .window-controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-right: 24px;
+      }
+
+      .control {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        transition: all 0.2s ease;
+      }
+
+      .control.red { background: #ef4444; }
+      .control.red:hover { background: #dc2626; }
+      .control.yellow { background: #eab308; }
+      .control.yellow:hover { background: #ca8a04; }
+      .control.green { background: #22c55e; }
+      .control.green:hover { background: #16a34a; }
+
+      .tab-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
+
+      .tab {
+        display: flex;
+        align-items: center;
+        height: 30px;
+        padding: 0 12px;
+        background: #2a2a2a;
+        border-radius: 4px;
+        margin: 0 2px;
+        max-width: 200px;
+        min-width: 60px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .tab-text {
+        font-size: 12px;
+        color: white;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .tab-indicator {
+        position: absolute;
+        bottom: 0;
+        height: 2px;
+        background: #eab308;
+        transition: all 0.3s ease;
+        left: 4.5px;
+        width: 55px;
+      }
+
+      .copy-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.2s ease;
+        background: #1f2937;
+        color: white;
+        border: none;
+        cursor: pointer;
+        width: 32px;
+        height: 20px;
+        margin-left: auto;
+        position: relative;
+        top: 2px;
+      }
+
+      .copy-button:hover { background: #374151; }
+      .copy-button:focus { outline: none; }
+
+      .copy-button svg {
+        width: 16px;
+        height: 16px;
+        pointer-events: none;
+        flex-shrink: 0;
+      }
+
+      .copy-icon, .check-icon {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+      }
+
+      .copy-icon { opacity: 1; transform: scale(1); }
+      .check-icon { opacity: 0; transform: scale(0.5); }
+
+      .copy-button.copied .copy-icon { opacity: 0; transform: scale(0.5); }
+      .copy-button.copied .check-icon {
+        opacity: 1;
+        transform: scale(1);
+        color: #22c55e;
+      }
+
+      .editor-content {
+        background: hsl(220, 13%, 18%);
+        color: hsl(220, 14%, 71%);
+        font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+        padding: 1em;
+        margin: 0;
+        overflow: auto;
+        border-radius: 0 0 8px 8px;
+        font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .editor-content pre {
+        margin: 0;
+        white-space: pre;
+        background: hsl(220, 13%, 18%);
+        color: hsl(220, 14%, 71%);
+        font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+        line-height: 1.5;
+      }
+
+      .editor-content code {
+        white-space: pre;
+        background: hsl(220, 13%, 18%);
+        color: hsl(220, 14%, 71%);
+        font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+        line-height: 1.5;
+      }
+
+      /* Highlight.js theme override */
+      .hljs {
+        background: hsl(220, 13%, 18%) !important;
+        color: hsl(220, 14%, 71%) !important;
+        font-family: "Fira Code", "Fira Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace !important;
+        font-size: 15px !important;
+        line-height: 1.5 !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
       }
     </style>
-
-    <script type="module" src="/build/hey-toast.esm.js"></script>
-    <script nomodule src="/build/hey-toast.js"></script>
   </head>
   <body>
     <hey-toast></hey-toast>
 
-    <h1>Hey Toast</h1>
-    <p class="subtitle">Beautiful toast notifications for your web app</p>
+    <h1>🥂 Hey Toast</h1>
+    <p class="subtitle">Raise a toast to better notifications</p>
 
-    <div class="button-grid">
-      <button id="showToastSuccess" class="toast-btn btn-success">Success</button>
-      <button id="showToastInfo" class="toast-btn btn-info">Info</button>
-      <button id="showToastWearing" class="toast-btn btn-warning">Warning</button>
-      <button id="showToastDanger" class="toast-btn btn-error">Error</button>
+    <!-- Modern API Section -->
+    <div class="api-section">
+      <div class="api-title">Modern API (toast.success)</div>
+      <div id="modernApiStatus" class="status">Loading modern API...</div>
+      <div class="button-grid">
+        <button id="modernSuccess" class="toast-btn btn-success">SUCCESS</button>
+        <button id="modernInfo" class="toast-btn btn-info">INFO</button>
+        <button id="modernWarning" class="toast-btn btn-warning">WARNING</button>
+        <button id="modernError" class="toast-btn btn-error">ERROR</button>
+        <button id="modernCustom" class="toast-btn btn-custom">CUSTOM <span>⚙️</span></button>
+      </div>
     </div>
 
-    <script>
-      let heyToast = document.querySelector('hey-toast');
+    <!-- Dynamic Code Example Section -->
+    <div class="api-section">
+      <div class="code-header">Generated Code</div>
+      <div class="code-editor">
+        <div class="editor-header">
+          <div class="window-controls">
+            <div class="control red"></div>
+            <div class="control yellow"></div>
+            <div class="control green"></div>
+          </div>
+          <div class="tab-container">
+            <div class="tab">
+              <span class="tab-text">jsx</span>
+            </div>
+            <div class="tab-indicator"></div>
+          </div>
+          <button class="copy-button" id="copyButton">
+            <svg class="copy-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"></rect>
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"></path>
+            </svg>
+            <svg class="check-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 6 9 17l-5-5"></path>
+            </svg>
+          </button>
+        </div>
+        <div class="editor-content">
+          <pre id="codeExample" data-plain-text="Click any button above to see the generated code..."><code class="language-javascript">Click any button above to see the generated code...</code></pre>
+        </div>
+      </div>
+    </div>
 
-      document.getElementById('showToastSuccess').addEventListener('click', event => {
-        heyToast.Toast({
-          title: 'Success!',
-          description: 'Your action was completed successfully',
-          timeOut: 3000,
-          position: 'top-center',
-          type: 'success',
-          allowClose: false,
-        });
-      });
+    <script type="module">
+      // Import the toast service properly
+      import { toast } from '/build/index.esm.js';
 
-      document.getElementById('showToastInfo').addEventListener('click', event => {
-        heyToast.Toast({
-          title: 'Information',
-          description: 'Here\'s some useful information for you',
-          timeOut: 3000,
-          position: 'bottom-center',
-          type: 'info',
-        });
-      });
+      // Initialize the demo when page loads
+      function initDemo() {
+        const statusEl = document.getElementById('modernApiStatus');
+        const codeExampleEl = document.getElementById('codeExample');
+        const copyButton = document.getElementById('copyButton');
 
-      document.getElementById('showToastWearing').addEventListener('click', event => {
-        heyToast.Toast({
-          title: 'Warning',
-          description: 'Please be careful with this action',
-          timeOut: 3000,
-          position: 'top-right',
-          type: 'warning',
-        });
-      });
+        // Wait for components to be ready
+        function checkReady() {
+          if (customElements.get('hey-toast') && customElements.get('hey-toast-content') && toast) {
+            setupEventListeners();
+            statusEl.textContent = '✅ Modern API ready!';
+            statusEl.className = 'status ready';
+          } else {
+            setTimeout(checkReady, 50);
+          }
+        }
 
-      document.getElementById('showToastDanger').addEventListener('click', event => {
-        heyToast.Toast({
-          title: 'Error',
-          description: 'Something went wrong. Please try again.',
-          timeOut: 5000,
-          position: 'top-right',
-          type: 'error',
-        });
-      });
+        // Update code example with syntax highlighting
+        function updateCodeExample(title, description, options = null) {
+          let code = `toast.success('${title}', '${description}')`;
+
+          if (options && Object.keys(options).length > 0) {
+            const optionsStr = JSON.stringify(options, null, 2)
+              .split('\n')
+              .map(line => '  ' + line)
+              .join('\n');
+            code = `toast.success('${title}', '${description}', ${optionsStr})`;
+          }
+
+          codeExampleEl.dataset.plainText = code;
+          codeExampleEl.textContent = code;
+          hljs.highlightElement(codeExampleEl);
+        }
+
+        // Play copy sound
+        function playCopySound() {
+          try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+
+            oscillator.start();
+            oscillator.stop(audioContext.currentTime + 0.1);
+          } catch (error) {
+            // Silently fail if audio is not supported
+          }
+        }
+
+        // Setup all event listeners
+        function setupEventListeners() {
+          // Copy button functionality
+          copyButton.addEventListener('click', async () => {
+            const code = codeExampleEl.dataset.plainText || codeExampleEl.textContent;
+            try {
+              await navigator.clipboard.writeText(code);
+              copyButton.classList.add('copied');
+              playCopySound();
+              setTimeout(() => copyButton.classList.remove('copied'), 2000);
+            } catch (err) {
+              console.error('Failed to copy: ', err);
+            }
+          });
+
+          // Toast buttons
+          const buttonConfigs = [
+            { id: 'modernSuccess', title: 'Success title', description: 'Success description!' },
+            { id: 'modernInfo', title: 'Info title', description: 'Info description' },
+            { id: 'modernWarning', title: 'Warning title', description: 'Warning description' },
+            { id: 'modernError', title: 'Error title', description: 'Error description' }
+          ];
+
+          buttonConfigs.forEach(config => {
+            document.getElementById(config.id).addEventListener('click', () => {
+              toast[config.id.replace('modern', '').toLowerCase()](config.title, config.description);
+              updateCodeExample(config.title, config.description);
+            });
+          });
+
+          // Custom button with options
+          document.getElementById('modernCustom').addEventListener('click', () => {
+            const title = 'Custom title';
+            const description = 'Custom description with settings!';
+            const options = {
+              timeOut: 5000,
+              position: 'bottom-center',
+              allowClose: false
+            };
+            toast.success(title, description, options);
+            updateCodeExample(title, description, options);
+          });
+        }
+
+        // Start initialization
+        checkReady();
+      }
+
+      // Initialize demo and Highlight.js
+      initDemo();
+      hljs.highlightAll();
     </script>
   </body>
 </html>
