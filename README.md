@@ -2,8 +2,6 @@
 
 A beautiful, customizable toast notification library built with Stencil.js for Angular applications.
 
-## Testing NPM Token
-
 ## Features
 
 - 🎨 **Beautiful Design** - Modern, clean toast notifications
@@ -204,6 +202,56 @@ This project uses [semantic-release](https://github.com/semantic-release/semanti
 - Version is determined by commit messages
 - Changelog is automatically generated
 - Package is automatically published to npm
+
+### Setting Up NPM Token for Automated Releases
+
+To enable automatic publishing to npm, you need to add an NPM token to your GitHub repository:
+
+#### 1. Create an NPM Token
+
+1. **Go to npmjs.com** and log in to your account
+2. **Click on your profile picture** (top right corner)
+3. **Select "Access Tokens"** from the dropdown menu
+4. **Click "Generate New Token"** button
+5. **Fill in the form**:
+   - **Token name**: `ng-toastify-release` (or any name you prefer)
+   - **Token type**: Select **"Automation"** (important for CI/CD)
+   - **Expiration**: Choose your preferred expiration (recommend 1 year)
+6. **Click "Generate Token"**
+7. **Copy the token** immediately (starts with `npm_`)
+
+#### 2. Add Token to GitHub Repository
+
+1. **Go to your GitHub repository**: `https://github.com/yourusername/ng-toastify`
+2. **Click "Settings"** tab
+3. **Go to "Secrets and variables"** → **"Actions"**
+4. **Click "New repository secret"**
+5. **Fill in**:
+   - **Name**: `NPM_TOKEN`
+   - **Secret**: Paste your npm token
+6. **Click "Add secret"**
+
+#### 3. Verify Setup
+
+Once the token is added, any push to the `main` branch will:
+- ✅ Build the package
+- ✅ Run tests
+- ✅ Publish to npm automatically
+- ✅ Create GitHub releases
+- ✅ Update version numbers
+
+#### 4. Commit Message Format
+
+Use conventional commit messages to control versioning:
+
+- `feat:` - New features (minor version bump)
+- `fix:` - Bug fixes (patch version bump)
+- `BREAKING CHANGE:` - Breaking changes (major version bump)
+- `docs:` - Documentation changes (no version bump)
+- `style:` - Code style changes (no version bump)
+- `refactor:` - Code refactoring (no version bump)
+- `test:` - Test changes (no version bump)
+- `chore:` - Maintenance tasks (no version bump)
 
 ## Contributing
 
