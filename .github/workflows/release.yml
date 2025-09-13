@@ -10,6 +10,11 @@ on:
       - main
       - master
 
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
 jobs:
   release:
     name: Release
@@ -52,6 +57,16 @@ jobs:
       - name: Install semantic-release plugins globally
         run: |
           npm install -g @semantic-release/changelog @semantic-release/npm @semantic-release/github
+
+      - name: Debug repository info
+        run: |
+          echo "Current branch: $(git branch --show-current)"
+          echo "Remote branches:"
+          git branch -r
+          echo "Repository URL:"
+          git remote get-url origin
+          echo "Package.json repository:"
+          cat package.json | grep -A 3 "repository"
 
       - name: Release
         env:
