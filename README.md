@@ -168,19 +168,6 @@ interface ToastOptions {
 - `bottom-left`
 - `bottom-center`
 
-## Styling
-
-The toasts come with built-in styling, but you can customize them by overriding CSS variables:
-
-```css
-hey-toast {
-  --success-bg-color: #178303;
-  --info-bg-color: #1476cc;
-  --warning-bg-color: #fbc02d;
-  --error-bg-color: #d32f2f;
-}
-```
-
 ## Development
 
 ### Prerequisites
