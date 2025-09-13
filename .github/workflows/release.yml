@@ -49,6 +49,10 @@ jobs:
       - name: Run tests
         run: pnpm test
 
+      - name: Install semantic-release plugins globally
+        run: |
+          npm install -g @semantic-release/changelog @semantic-release/npm @semantic-release/github
+
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
