@@ -1,8 +1,8 @@
-# 🥂 hey-toast
+# 🥂 ng-toastify-stencil
 
-Coolbrains Toast Notification web component - Built With Stenciljs ⚡
+Ng-toastify-stencil Toast Notification web component - Built With Stenciljs ⚡
 
-![Toast](https://github.com/2rohityadav/hey-toast/blob/main/hey-toast.png?raw=true "Toast")
+![Toast](https://github.com/2rohityadav/ng-toastify-stencil/blob/main/ng-toastify-stencil.png?raw=true "Toast")
 
 This is a toast notification Web Component using Stenciljs.
 
@@ -18,31 +18,31 @@ This is a toast notification Web Component using Stenciljs.
 ## Installation 📦
 
 ```bash
-npm install hey-toast
+npm install ng-toastify-stencil
 ```
 
 ### For Local Development (npm link)
 ```bash
-# In hey-toast project
+# In ng-toastify-stencil project
 npm run build
 npm link
 
 # In your consuming project
-npm link hey-toast
+npm link ng-toastify-stencil
 ```
 
 ### CDN Usage
 ```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/hey-toast@1.0.0/dist/hey-toast/hey-toast.esm.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/npm/ng-toastify-stencil@1.0.0/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js"></script>
 ```
 
 ### Nx Angular Project Setup
 ```bash
 # Install in Nx workspace
-npm install hey-toast
+npm install ng-toastify-stencil
 
 # That's it! No additional configuration needed
-# Just import and use: import { toast } from 'hey-toast';
+# Just import and use: import { toast } from 'ng-toastify-stencil';
 ```
 
 ## Usage 💡
@@ -51,7 +51,7 @@ The Coolbrains toast Component provides a modern, easy-to-use API with **zero co
 
 ### ✅ Super Simple Usage
 ```javascript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 // Basic usage
 toast.success('Success title', 'Success description!');
@@ -75,14 +75,14 @@ If you prefer manual control, you can still include the web component script:
 
 ```html
 <!-- Add this to your HTML -->
-<script type="module" src="/node_modules/hey-toast/dist/hey-toast/hey-toast.esm.js"></script>
+<script type="module" src="/node_modules/ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js"></script>
 ```
 
 Or import it in your JavaScript:
 ```javascript
 // Import web components first
-import 'hey-toast/dist/hey-toast/hey-toast.esm.js';
-import { toast } from 'hey-toast';
+import 'ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js';
+import { toast } from 'ng-toastify-stencil';
 
 toast.success('Success', 'It works!');
 ```
@@ -151,7 +151,7 @@ toast.info('Info title', 'This will appear at bottom center for 5 seconds', {
 #### React
 
 ```javascript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 function MyComponent() {
   const handleSuccess = () => {
@@ -178,7 +178,7 @@ function MyComponent() {
 
 ```typescript
 import { Component } from '@angular/core';
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 @Component({
   selector: 'app-my-component',
@@ -204,14 +204,14 @@ export class MyComponent {
 No additional setup required! Just import and use:
 
 ```typescript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 toast.success('Success', 'It works!');
 ```
 
 #### Vue.js
 
 ```javascript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 export default {
   methods: {

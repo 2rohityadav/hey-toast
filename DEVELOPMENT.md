@@ -19,7 +19,7 @@ npm start
 We use a single `src/index.html` file that works perfectly with the development server. This file demonstrates the modern API:
 
 ```javascript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 toast.success('Success title', 'Success description!');
 ```
 
@@ -34,7 +34,7 @@ This single page demonstrates the modern API with live examples!
 
 ### Modern API (Import-based)
 ```javascript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 // Basic usage
 toast.success('Success title', 'Success description!');
@@ -52,12 +52,12 @@ toast.success('Success title', 'Success description!', {
 
 ### Setup for Local Development
 ```bash
-# In hey-toast project
+# In ng-toastify-stencil project
 npm run build
 npm link
 
 # In your consuming project
-npm link hey-toast
+npm link ng-toastify-stencil
 ```
 
 ### ✅ Super Simple Usage (No Manual Setup Required!)
@@ -65,7 +65,7 @@ npm link hey-toast
 The library now auto-registers web components when imported. Just use it directly:
 
 ```javascript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 // That's it! No manual imports or configuration needed
 toast.success('Success', 'It works!');
@@ -77,16 +77,16 @@ If you prefer manual control, you can still include the web component script:
 
 ```html
 <!-- Add this to your HTML head or before your main script -->
-<script type="module" src="/node_modules/hey-toast/dist/hey-toast/hey-toast.esm.js"></script>
+<script type="module" src="/node_modules/ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js"></script>
 ```
 
 Or import it manually in your JavaScript:
 ```javascript
 // Import web components first
-import 'hey-toast/dist/hey-toast/hey-toast.esm.js';
+import 'ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js';
 
 // Then import the toast service
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 // Now you can use it
 toast.success('Success', 'It works!');
@@ -109,7 +109,7 @@ npm pack --dry-run
 ### 2. Configure package.json for Publishing
 ```json
 {
-  "name": "hey-toast",
+  "name": "ng-toastify-stencil",
   "version": "1.0.0",
   "main": "dist/esm/index.js",
   "module": "dist/esm/index.js",
@@ -120,10 +120,10 @@ npm pack --dry-run
       "require": "./dist/index.js",
       "types": "./dist/types/index.d.ts"
     },
-    "./web-components": {
-      "import": "./dist/hey-toast/hey-toast.esm.js",
-      "require": "./dist/hey-toast/hey-toast.js"
-    }
+      "./web-components": {
+        "import": "./dist/ng-toastify-stencil/ng-toastify-stencil.esm.js",
+        "require": "./dist/ng-toastify-stencil/ng-toastify-stencil.js"
+      }
   },
   "files": [
     "dist/",
@@ -147,7 +147,7 @@ npm publish
 ### 1. Install the Package
 ```bash
 # In your Nx workspace
-npm install hey-toast
+npm install ng-toastify-stencil
 ```
 
 ### 2. ✅ Super Simple Usage (No Configuration Required!)
@@ -156,7 +156,7 @@ Just import and use - no manual setup needed, even in Nx monorepos with `project
 
 ```typescript
 import { Component } from '@angular/core';
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 @Component({
   selector: 'app-my-component',
@@ -182,7 +182,7 @@ export class MyComponent {
 #### Create `libs/shared/services/toast.service.ts`
 ```typescript
 import { Injectable } from '@angular/core';
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 @Injectable({
   providedIn: 'root'
@@ -237,7 +237,7 @@ If you prefer manual control, you can still configure scripts in your `project.j
     "build": {
       "options": {
         "scripts": [
-          "node_modules/hey-toast/dist/hey-toast/hey-toast.esm.js"
+          "node_modules/ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js"
         ]
       }
     }
@@ -251,8 +251,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
 
-// Import hey-toast web components (optional - auto-imports now)
-import 'hey-toast/dist/hey-toast/hey-toast.esm.js';
+// Import ng-toastify-stencil web components (optional - auto-imports now)
+import 'ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js';
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
@@ -269,7 +269,7 @@ bootstrapApplication(AppComponent, appConfig)
     "build": {
       "options": {
         "scripts": [
-          "node_modules/hey-toast/dist/hey-toast/hey-toast.esm.js"
+          "node_modules/ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js"
         ]
       }
     }
@@ -298,14 +298,14 @@ Create a wrapper library in your Nx workspace:
 # Generate a new library
 nx generate @nx/angular:library toast-wrapper
 
-# Add hey-toast as dependency
-npm install hey-toast
+# Add ng-toastify-stencil as dependency
+npm install ng-toastify-stencil
 ```
 
 #### Create `libs/toast-wrapper/src/lib/toast-wrapper.service.ts`
 ```typescript
 import { Injectable } from '@angular/core';
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 @Injectable({
   providedIn: 'root'
@@ -347,7 +347,7 @@ For Angular 19 projects, you need to configure web components properly:
         "build": {
           "options": {
             "scripts": [
-              "node_modules/hey-toast/dist/hey-toast/hey-toast.esm.js"
+              "node_modules/ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js"
             ]
           }
         }
@@ -363,8 +363,8 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
 
-// Import hey-toast web components
-import 'hey-toast/dist/hey-toast/hey-toast.esm.js';
+// Import ng-toastify-stencil web components
+import 'ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js';
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));
@@ -386,7 +386,7 @@ export const appConfig: ApplicationConfig = {
 #### 4. Use in Your Component
 ```typescript
 import { Component } from '@angular/core';
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 @Component({
   selector: 'app-my-component',
@@ -407,7 +407,7 @@ Create a toast service for better Angular integration:
 ```typescript
 // src/app/services/toast.service.ts
 import { Injectable } from '@angular/core';
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 @Injectable({
   providedIn: 'root'
@@ -462,8 +462,8 @@ export class MyComponent {
    - Or import it manually in your JavaScript
 
 3. **"Module not found" errors**
-   - Make sure you've run `npm run build` in the hey-toast project
-   - Check that the link is properly established: `npm ls hey-toast`
+   - Make sure you've run `npm run build` in the ng-toastify-stencil project
+   - Check that the link is properly established: `npm ls ng-toastify-stencil`
 
 4. **Angular build errors**
    - Make sure the script path in `angular.json` is correct
@@ -473,8 +473,8 @@ export class MyComponent {
 ```javascript
 // Add this to debug
 console.log('Custom elements:', {
-  'hey-toast': customElements.get('hey-toast'),
-  'hey-toast-content': customElements.get('hey-toast-content')
+  'ng-toastify-stencil': customElements.get('ng-toastify-stencil'),
+  'ng-toastify-stencil-content': customElements.get('ng-toastify-stencil-content')
 });
 
 // Check if toast service is working
@@ -519,7 +519,7 @@ Open browser console to see:
 
 After running `npm run build`, these files are generated:
 
-- `dist/hey-toast/hey-toast.esm.js` - Web components (for production)
+- `dist/ng-toastify-stencil/ng-toastify-stencil.esm.js` - Web components (for production)
 - `dist/esm/index.js` - Toast services (for production)
 - `www/build/` - Development server files
 
@@ -535,7 +535,7 @@ After running `npm run build`, these files are generated:
 
 ### React
 ```javascript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 function MyComponent() {
   const handleSuccess = () => {
@@ -546,7 +546,7 @@ function MyComponent() {
 
 ### Angular
 ```typescript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 @Component({...})
 export class MyComponent {
@@ -558,7 +558,7 @@ export class MyComponent {
 
 ### Vue.js
 ```javascript
-import { toast } from 'hey-toast';
+import { toast } from 'ng-toastify-stencil';
 
 export default {
   methods: {

@@ -16,16 +16,16 @@ export interface ToastConfig {
 // Auto-register web components when this module is imported
 const registerWebComponents = async () => {
   // Only register if not already registered
-  if (customElements.get('hey-toast') && customElements.get('hey-toast-content')) {
+  if (customElements.get('ng-toastify-stencil') && customElements.get('ng-toastify-stencil-content')) {
     return;
   }
 
   // Try to import web components automatically using dynamic import
   const paths = [
-    'hey-toast/dist/hey-toast/hey-toast.esm.js',
-    './hey-toast.esm.js',
-    '../hey-toast.esm.js',
-    '/node_modules/hey-toast/dist/hey-toast/hey-toast.esm.js'
+    'ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js',
+    './ng-toastify-stencil.esm.js',
+    '../ng-toastify-stencil.esm.js',
+    '/node_modules/ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js'
   ];
 
   let imported = false;
@@ -41,7 +41,7 @@ const registerWebComponents = async () => {
   }
 
   if (!imported) {
-    console.warn('Hey Toast: Could not auto-import web components. Please ensure hey-toast is properly installed.');
+    console.warn('Ng-toastify-stencil: Could not auto-import web components. Please ensure ng-toastify-stencil is properly installed.');
   }
 };
 
@@ -64,10 +64,10 @@ export class ToastService {
   }
 
   private initializeToast() {
-    this.toastElement = document.querySelector('hey-toast');
+    this.toastElement = document.querySelector('ng-toastify-stencil');
 
     if (!this.toastElement) {
-      this.toastElement = document.createElement('hey-toast');
+      this.toastElement = document.createElement('ng-toastify-stencil');
       document.body.appendChild(this.toastElement);
     }
   }
