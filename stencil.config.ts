@@ -10,7 +10,7 @@ declare const process: {
 process.env.NODE_ENV = 'production';
 
 export const config: Config = {
-  namespace: 'hey-toast',
+  namespace: 'ng-toastify',
   outputTargets: [
     {
       type: 'dist',

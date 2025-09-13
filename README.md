@@ -1,191 +1,228 @@
-# 🥂 hey-toast
+# ng-toastify-stencil
 
-Coolbrains Toast Notification web component - Built With Stenciljs ⚡
+A beautiful, customizable toast notification library built with Stencil.js for Angular applications.
 
-![Toast](https://github.com/2rohityadav/hey-toast/blob/main/hey-toast.png?raw=true "Toast")
+## Features
 
-This is a toast notification Web Component using Stenciljs.
+- 🎨 **Beautiful Design** - Modern, clean toast notifications
+- 🚀 **Easy Integration** - Simple setup with Angular
+- 🎯 **TypeScript Support** - Full TypeScript support
+- 📱 **Responsive** - Works on all screen sizes
+- 🎨 **Customizable** - Multiple positions and styles
+- ⚡ **Lightweight** - Small bundle size
+- 🔧 **Framework Agnostic** - Works with any framework that supports web components
 
-- 🚀 Built with Stencil
-- 🎨 Built with TailwindCSS v3.x
-- ✨ Modern & Clean Design
-- 🎯 Easy to Use
-
-## Demo 🌐
-
-[Demo](https://demo-heyToast.netlify.app/)
-
-## Installation 📦
+## Installation
 
 ```bash
-npm install hey-toast
+npm install ng-toastify-stencil
+# or
+yarn add ng-toastify-stencil
+# or
+pnpm add ng-toastify-stencil
 ```
 
-Or use npm cdn:
+## Angular Integration
 
-```html
-<script type="module" src="https://cdn.jsdelivr.net/npm/hey-toast@1.0.0/dist/hey-toast/hey-toast.esm.js"></script>
-```
+### 1. Import and Register Components
 
-## Usage 💡
-
-The Coolbrains toast Component provides a modern, easy-to-use API:
-
-```javascript
-import { toast } from 'hey-toast';
-
-// Basic usage
-toast.success('Success title', 'Success description!');
-toast.info('Info title', 'Info description');
-toast.warning('Warning title', 'Warning description');
-toast.error('Error title', 'Error description');
-
-// With optional configuration
-toast.success('Success title', 'Success description!', {
-  timeOut: 5000,
-  position: 'bottom-center',
-  allowClose: false
-});
-```
-
-## Positions 📍
-
-```javascript
-'top';           // Top center
-'top-center';    // Top center (explicit)
-'top-left';      // Top left corner
-'top-right';     // Top right corner (default)
-'bottom-left';   // Bottom left corner
-'bottom-right';  // Bottom right corner
-'bottom';        // Bottom center
-'bottom-center'; // Bottom center (explicit)
-```
-
-## Types 🎨
-
-```javascript
-'success'; // default ✅
-'info';    // ℹ️
-'warning'; // ⚠️
-'error';   // ❌
-```
-
-## Options ⚙️
-
-```javascript
-{
-  timeOut: 3000,              // Optional - Auto dismiss time in ms (default: 3000)
-  position: 'top-right',      // Optional - Toast position (default: 'top-right')
-  allowClose: true            // Optional - Show close button (default: true)
-}
-```
-
-
-
-## Examples 📝
-
-### Basic Toast
-
-```javascript
-toast.success('Success title', 'Success description!');
-```
-
-### Toast without Manual Close
-
-```javascript
-toast.warning('Important Notice', 'This toast cannot be manually closed', {
-  allowClose: false
-});
-```
-
-### Custom Position and Timeout
-
-```javascript
-toast.info('Info title', 'This will appear at bottom center for 5 seconds', {
-  position: 'bottom-center',
-  timeOut: 5000
-});
-```
-
-### Framework Examples
-
-#### React
-
-```javascript
-import { toast } from 'hey-toast';
-
-function MyComponent() {
-  const handleSuccess = () => {
-    toast.success('Success', 'Data saved successfully!');
-  };
-
-  const handleError = () => {
-    toast.error('Error', 'Failed to save data', {
-      timeOut: 5000,
-      position: 'top-center'
-    });
-  };
-
-  return (
-    <div>
-      <button onClick={handleSuccess}>Save</button>
-      <button onClick={handleError}>Test Error</button>
-    </div>
-  );
-}
-```
-
-#### Angular
+In your `main.ts`:
 
 ```typescript
-import { toast } from 'hey-toast';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 
-@Component({...})
-export class MyComponent {
+// Import ng-toastify custom elements
+import { defineCustomElement as defineNgToastify } from 'ng-toastify-stencil/dist/components/ng-toastify.js';
+import { defineCustomElement as defineNgToastifyContent } from 'ng-toastify-stencil/dist/components/ng-toastify-content.js';
+
+// Register the custom elements
+defineNgToastify();
+defineNgToastifyContent();
+
+bootstrapApplication(AppComponent, appConfig);
+```
+
+### 2. Add CUSTOM_ELEMENTS_SCHEMA
+
+In your component:
+
+```typescript
+import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { toast } from 'ng-toastify-stencil';
+
+@Component({
+  selector: 'app-example',
+  template: `
+    <button (click)="showSuccess()">Show Success Toast</button>
+    <button (click)="showError()">Show Error Toast</button>
+  `,
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class ExampleComponent {
   showSuccess() {
-    toast.success('Success', 'Operation completed!');
+    toast.success('Success!', 'Operation completed successfully');
   }
 
-  showWarning() {
-    toast.warning('Warning', 'Please check your input', {
-      allowClose: false
-    });
+  showError() {
+    toast.error('Error!', 'Something went wrong');
   }
 }
 ```
 
-#### Vue.js
+## Usage
 
-```javascript
-import { toast } from 'hey-toast';
+### Basic Usage
 
-export default {
-  methods: {
-    showInfo() {
-      toast.info('Info', 'Here is some information');
-    },
-    
-    showCustomToast() {
-      toast.success('Custom', 'Custom configuration', {
-        timeOut: 10000,
-        position: 'bottom-right',
-        allowClose: true
-      });
-    }
-  }
+```typescript
+import { toast } from 'ng-toastify-stencil';
+
+// Success toast
+toast.success('Success!', 'Operation completed successfully');
+
+// Info toast
+toast.info('Information', 'Here is some useful information');
+
+// Warning toast
+toast.warning('Warning!', 'Please check your input');
+
+// Error toast
+toast.error('Error!', 'Something went wrong');
+```
+
+### Advanced Usage with Options
+
+```typescript
+import { toast } from 'ng-toastify-stencil';
+
+// Custom options
+toast.success('Success!', 'Operation completed', {
+  timeOut: 5000,           // Auto-dismiss after 5 seconds
+  position: 'top-right',   // Position on screen
+  allowClose: true         // Allow manual close
+});
+
+// Different positions
+toast.info('Info', 'Top left', { position: 'top-left' });
+toast.warning('Warning', 'Bottom right', { position: 'bottom-right' });
+toast.error('Error', 'Bottom left', { position: 'bottom-left' });
+```
+
+## API Reference
+
+### Toast Methods
+
+| Method | Description | Parameters |
+|--------|-------------|------------|
+| `toast.success(title, description, options?)` | Show success toast | `title: string`, `description: string`, `options?: ToastOptions` |
+| `toast.info(title, description, options?)` | Show info toast | `title: string`, `description: string`, `options?: ToastOptions` |
+| `toast.warning(title, description, options?)` | Show warning toast | `title: string`, `description: string`, `options?: ToastOptions` |
+| `toast.error(title, description, options?)` | Show error toast | `title: string`, `description: string`, `options?: ToastOptions` |
+
+### ToastOptions Interface
+
+```typescript
+interface ToastOptions {
+  timeOut?: number;        // Auto-dismiss timeout in milliseconds (default: 3000)
+  position?: string;       // Position on screen (default: 'top-right')
+  allowClose?: boolean;    // Allow manual close (default: true)
 }
 ```
 
-## Features ✨
+### Available Positions
 
-- 🚀 **Modern API**: Clean method chaining with `toast.success()`, `toast.error()`, etc.
-- 🎯 **Multiple Positions**: 8 different positioning options
-- 🎨 **4 Toast Types**: Success, Info, Warning, Error
-- ⏱️ **Customizable Timeout**: Set your own auto-dismiss time
-- 🎪 **Smooth Animations**: Beautiful fade in/out transitions
-- 📱 **Responsive Design**: Works on all screen sizes
-- 🎨 **Modern Icons**: Clean SVG icons for each toast type
-- 🖱️ **Manual Close**: Click the X button to close manually (optional)
-- ♿ **Accessibility**: Proper ARIA labels and keyboard support
-- 🔧 **Framework Agnostic**: Works with React, Angular, Vue.js, and vanilla JavaScript
-- 📦 **Zero Dependencies**: Lightweight with no external dependencies
+- `top-right` (default)
+- `top-left`
+- `top-center`
+- `bottom-right`
+- `bottom-left`
+- `bottom-center`
+
+## Styling
+
+The toasts come with built-in styling, but you can customize them by overriding CSS variables:
+
+```css
+ng-toastify {
+  --success-bg-color: #178303;
+  --info-bg-color: #1476cc;
+  --warning-bg-color: #fbc02d;
+  --error-bg-color: #d32f2f;
+}
+```
+
+## Development
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/2rohityadav/ng-toastify.git
+cd ng-toastify
+
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm start
+
+# Build for production
+pnpm build
+
+# Run tests
+pnpm test
+```
+
+### Commit Convention
+
+This project uses [Conventional Commits](https://conventionalcommits.org/) for commit messages:
+
+- `feat:` New features
+- `fix:` Bug fixes
+- `docs:` Documentation changes
+- `style:` Code style changes
+- `refactor:` Code refactoring
+- `perf:` Performance improvements
+- `test:` Test changes
+- `build:` Build system changes
+- `ci:` CI/CD changes
+- `chore:` Other changes
+
+### Release Process
+
+This project uses [semantic-release](https://github.com/semantic-release/semantic-release) for automatic versioning and publishing:
+
+- Push to `main` branch triggers automatic release
+- Version is determined by commit messages
+- Changelog is automatically generated
+- Package is automatically published to npm
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Commit your changes: `git commit -m 'feat: add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes and releases.
+
+## Support
+
+If you have any questions or need help, please open an issue on GitHub.
+
+---
+
+Made with ❤️ by [Rohit Yadav](https://github.com/2rohityadav)

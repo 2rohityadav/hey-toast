@@ -13,6 +13,36 @@ export interface ToastConfig {
   allowClose?: boolean;
 }
 
+// Auto-register web components when this module is imported
+const registerWebComponents = async () => {
+  // Only register if not already registered
+  if (customElements.get('ng-toastify') && customElements.get('ng-toastify-content')) {
+    return;
+  }
+
+  // If we're in a browser environment, wait for components to be loaded by the main app
+  if (typeof window !== 'undefined') {
+    let attempts = 0;
+    const maxAttempts = 200; // 20 seconds max wait
+
+    while (attempts < maxAttempts && !customElements.get('ng-toastify')) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      attempts++;
+    }
+
+    if (customElements.get('ng-toastify')) {
+      console.log('ng-toastify: Components successfully registered');
+      return;
+    }
+  }
+
+  // If components are still not found, log a helpful message
+  console.warn('ng-toastify: Components not found. Make sure defineCustomElements() is called in your app.config.ts');
+};
+
+// Register components immediately when this module is imported
+registerWebComponents();
+
 export class ToastService {
   private static instance: ToastService;
   private toastElement: any;
@@ -29,15 +59,18 @@ export class ToastService {
   }
 
   private initializeToast() {
-    this.toastElement = document.querySelector('hey-toast');
+    this.toastElement = document.querySelector('ng-toastify');
 
     if (!this.toastElement) {
-      this.toastElement = document.createElement('hey-toast');
+      this.toastElement = document.createElement('ng-toastify');
       document.body.appendChild(this.toastElement);
     }
   }
 
-  private showToast(title: string, description: string, type: string, options?: ToastOptions) {
+  private async showToast(title: string, description: string, type: string, options?: ToastOptions): Promise<void> {
+    // Ensure components are registered first
+    await registerWebComponents();
+
     if (!this.toastElement) {
       this.initializeToast();
     }
