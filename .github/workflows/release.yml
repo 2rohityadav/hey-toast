@@ -51,8 +51,25 @@ jobs:
       - name: Build
         run: pnpm build
 
-      - name: Run tests
-        run: pnpm test
+      - name: Run tests with coverage
+        run: pnpm test -- --coverage
+
+      - name: Check coverage files
+        run: |
+          echo "Checking for coverage files..."
+          ls -la coverage/ || echo "No coverage directory found"
+          find . -name "*.lcov" -o -name "coverage-*.json" -o -name "clover.xml" || echo "No coverage files found"
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          # Let Codecov auto-detect coverage files instead of specifying
+          # This works better with different test frameworks
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+          verbose: true
 
       - name: Install semantic-release plugins globally
         run: |
