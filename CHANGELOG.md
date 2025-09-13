@@ -1,3 +1,9 @@
+# 1.1.1 (2025-09-13)
+
+### Bug Fixes
+
+* fix version conflict preventing npm publish
+
 # 1.0.0 (2025-09-13)
 
 
