@@ -1,6 +1,20 @@
 # [1.1.0](https://github.com/2rohityadav/ng-toastify/compare/v1.0.0...v1.1.0) (2025-09-13)
 
 
+### Bug Fixes
+
+* bump version to 1.1.1 for next release ([c908a24](https://github.com/2rohityadav/ng-toastify/commit/c908a2432e8afd3806102be746456ca27572256c))
+* update repository URL format to prevent npm warnings ([681dc33](https://github.com/2rohityadav/ng-toastify/commit/681dc33f5571c7aace9ab1c8d61ba60e3c2f6ef2))
+
+
+### Features
+
+* add codecov integration and coverage reporting ([151b2b7](https://github.com/2rohityadav/ng-toastify/commit/151b2b7de4a8028edd1a578a0a9d303e79859c43))
+* bump version ([9291f8b](https://github.com/2rohityadav/ng-toastify/commit/9291f8b09995a09c5073792a02f54351a88666df))
+
+# [1.1.0](https://github.com/2rohityadav/ng-toastify/compare/v1.0.0...v1.1.0) (2025-09-13)
+
+
 ### Features
 
 * add codecov integration and coverage reporting ([151b2b7](https://github.com/2rohityadav/ng-toastify/commit/151b2b7de4a8028edd1a578a0a9d303e79859c43))
