@@ -22,6 +22,7 @@ module.exports = {
     'subject-empty': [2, 'never'],
     'subject-full-stop': [2, 'never', '.'],
     'type-case': [2, 'always', 'lower-case'],
-    'type-empty': [2, 'never']
+    'type-empty': [2, 'never'],
+    'body-max-line-length': [0, 'always', 100] // Disable body length check for release commits
   }
 };
