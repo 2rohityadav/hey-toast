@@ -1,11 +1,11 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'ng-toastify-content',
-  styleUrl: 'ng-toastify-content.css',
+  tag: 'hey-toast-content',
+  styleUrl: 'hey-toast-content.css',
   shadow: false,
 })
-export class NgToastifyContent {
+export class HeyToastContent {
   el: HTMLElement;
   @Prop() toastTitle: string = 'Success';
   @Prop() description: string = 'success message';
@@ -20,7 +20,7 @@ export class NgToastifyContent {
     event.preventDefault();
     event.stopPropagation();
 
-    const toastElement = event.target.closest('ng-toastify-content');
+    const toastElement = event.target.closest('hey-toast-content');
     if (toastElement) {
       const toastContent = toastElement.querySelector('.toast-content');
       if (toastContent) {
@@ -46,7 +46,7 @@ export class NgToastifyContent {
       </svg>
     );
 
-    // Special handling for warning icon which has a different viewBox
+    /* Special handling for warning icon which has a different viewBox */
     if (this.type === 'warning') {
       svgIcon = (
         <svg width="24" height="20" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg">

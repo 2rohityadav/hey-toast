@@ -3,17 +3,17 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
-    <title>Ng-toastify-stencil - Modern API Demo</title>
+    <title>Hey-toast - Modern API Demo</title>
 
     <!-- Highlight.js for syntax highlighting -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/javascript.min.js"></script>
 
-    <!-- Ng-toastify-stencil Components -->
-    <script type="module" src="/build/ng-toastify-stencil.esm.js"></script>
+    <!-- Hey-toast Components -->
+    <script type="module" src="/build/hey-toast.esm.js"></script>
     <script type="module" src="/build/index.esm.js"></script>
-    <script nomodule src="/build/ng-toastify-stencil.js"></script>
+    <script nomodule src="/build/hey-toast.js"></script>
 
     <style>
       * {
@@ -299,9 +299,9 @@
     </style>
   </head>
   <body>
-    <ng-toastify-stencil></ng-toastify-stencil>
+    <hey-toast></hey-toast>
 
-    <h1>🥂 Ng-toastify-stencil</h1>
+    <h1>🥂 Hey-toast</h1>
     <p class="subtitle">Raise a toast to better notifications</p>
 
     <!-- Modern API Section -->
@@ -361,7 +361,7 @@
 
         // Wait for components to be ready
         function checkReady() {
-          if (customElements.get('ng-toastify-stencil') && customElements.get('ng-toastify-stencil-content') && toast) {
+          if (customElements.get('hey-toast') && customElements.get('hey-toast-content') && toast) {
             setupEventListeners();
             statusEl.textContent = '✅ Modern API ready!';
             statusEl.className = 'status ready';

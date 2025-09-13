@@ -10,11 +10,11 @@ export interface ToastOptions {
 }
 
 @Component({
-  tag: 'ng-toastify',
-  styleUrl: 'ng-toastify.css',
+  tag: 'hey-toast',
+  styleUrl: 'hey-toast.css',
   shadow: true,
 })
-export class NgToastify {
+export class HeyToast {
   rootElement: HTMLElement;
   @State() timeOut: number = 300000;
   @State() position: string = 'top-right';
@@ -83,11 +83,10 @@ export class NgToastify {
       this.position = toast['position'];
     }
 
-    let toastContent = document.createElement('ng-toastify-content');
+    let toastContent = document.createElement('hey-toast-content');
     this.rootElement.append(toastContent);
     this.toastContentComponent(toast, toastContent);
 
-    // Only set auto-dismiss timeout if allowClose is not false
     if (toast.allowClose !== false) {
       setTimeout(() => {
         let toastContainer = toastContent.firstElementChild;

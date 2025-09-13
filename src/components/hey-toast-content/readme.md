@@ -1,9 +1,6 @@
-# ng-toastify-stencil-content
-
-
+# hey-toast-content
 
 <!-- Auto Generated Below -->
-
 
 ## Properties
 
@@ -17,18 +14,18 @@
 | `typeIcon`      | `type-icon`       |             | `any`     | `undefined`         |
 | `typeTextColor` | `type-text-color` |             | `string`  | `undefined`         |
 
-
 ## Dependencies
 
 ### Used by
 
- - [ng-toastify](../ng-toastify)
+- [hey-toast](../hey-toast)
 
 ### Graph
+
 ```mermaid
 graph TD;
-  ng-toastify --> ng-toastify-content
-  style ng-toastify-content fill:#f9f,stroke:#333,stroke-width:4px
+  hey-toast --> hey-toast-content
+  style hey-toast-content fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

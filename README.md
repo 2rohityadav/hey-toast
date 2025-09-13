@@ -1,14 +1,13 @@
-# ng-toastify-stencil
+# 🥂 hey-toast
 
-[![npm](https://img.shields.io/npm/v/ng-toastify-stencil)](https://www.npmjs.com/package/ng-toastify-stencil)
-[![npm](https://img.shields.io/npm/dt/ng-toastify-stencil)](https://www.npmjs.com/package/ng-toastify-stencil)
-[![Coverage](https://codecov.io/gh/2rohityadav/ng-toastify/graph/badge.svg?token=QMW415ZMD9)](https://codecov.io/gh/2rohityadav/ng-toastify-stencil)
-[![Bundle size](https://pkg-size.dev/badge/bundle/15200)](https://pkg-size.dev/ng-toastify)
-[![Gzipped Size](https://img.shields.io/badge/gzipped-4.2%20kB-brightgreen)](https://www.npmjs.com/package/ng-toastify-stencil)
+[![npm](https://img.shields.io/npm/v/hey-toast)](https://www.npmjs.com/package/hey-toast)
+[![Coverage](https://codecov.io/gh/2rohityadav/hey-toast/graph/badge.svg?token=QMW415ZMD9)](https://codecov.io/gh/2rohityadav/hey-toast)
+[![Bundle size](https://pkg-size.dev/badge/bundle/15200)](https://pkg-size.dev/hey-toast)
+[![Gzipped Size](https://img.shields.io/badge/gzipped-4.2%20kB-brightgreen)](https://www.npmjs.com/package/hey-toast)
 [![Stencil](https://img.shields.io/badge/Built%20with-Stencil-16161d.svg)](https://stenciljs.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-A beautiful, customizable toast notification library built with Stencil.js for Angular applications.
+A beautiful, customizable toast notification library built with Stencil.js. **Raise a toast to better notifications** - works with any framework that supports web components.
 
 ## Features
 
@@ -23,16 +22,16 @@ A beautiful, customizable toast notification library built with Stencil.js for A
 ## Installation
 
 ```bash
-npm install ng-toastify-stencil
+npm install hey-toast
 # or
-yarn add ng-toastify-stencil
+yarn add hey-toast
 # or
-pnpm add ng-toastify-stencil
+pnpm add hey-toast
 ```
 
 ## Angular Integration
 
-### 1. Import and Register Components
+### 1. Easy Setup with Loader (Recommended)
 
 In your `main.ts`:
 
@@ -40,25 +39,47 @@ In your `main.ts`:
 import { bootstrapApplication } from '@angular/platform-browser';
 import { AppComponent } from './app/app.component';
 import { appConfig } from './app/app.config';
+import { provideAppInitializer } from '@angular/core';
 
-// Import ng-toastify custom elements
-import { defineCustomElement as defineNgToastify } from 'ng-toastify-stencil/dist/components/ng-toastify.js';
-import { defineCustomElement as defineNgToastifyContent } from 'ng-toastify-stencil/dist/components/ng-toastify-content.js';
+// Import hey-toast loader
+import { defineCustomElements as defineHeyToastElements } from 'hey-toast/loader';
+
+bootstrapApplication(AppComponent, {
+  ...appConfig,
+  providers: [
+    ...appConfig.providers,
+    provideAppInitializer(() => defineHeyToastElements(window))
+  ]
+});
+```
+
+### 2. Manual Component Registration (Alternative)
+
+If the loader approach doesn't work, you can manually register components:
+
+```typescript
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
+
+// Import hey-toast custom elements
+import { defineCustomElement as defineHeyToast } from 'hey-toast/dist/components/hey-toast.js';
+import { defineCustomElement as defineHeyToastContent } from 'hey-toast/dist/components/hey-toast-content.js';
 
 // Register the custom elements
-defineNgToastify();
-defineNgToastifyContent();
+defineHeyToast();
+defineHeyToastContent();
 
 bootstrapApplication(AppComponent, appConfig);
 ```
 
-### 2. Add CUSTOM_ELEMENTS_SCHEMA
+### 3. Add CUSTOM_ELEMENTS_SCHEMA
 
 In your component:
 
 ```typescript
 import { Component, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { toast } from 'ng-toastify-stencil';
+import { toast } from 'hey-toast';
 
 @Component({
   selector: 'app-example',
@@ -84,7 +105,7 @@ export class ExampleComponent {
 ### Basic Usage
 
 ```typescript
-import { toast } from 'ng-toastify-stencil';
+import { toast } from 'hey-toast';
 
 // Success toast
 toast.success('Success!', 'Operation completed successfully');
@@ -102,7 +123,7 @@ toast.error('Error!', 'Something went wrong');
 ### Advanced Usage with Options
 
 ```typescript
-import { toast } from 'ng-toastify-stencil';
+import { toast } from 'hey-toast';
 
 // Custom options
 toast.success('Success!', 'Operation completed', {
@@ -152,7 +173,7 @@ interface ToastOptions {
 The toasts come with built-in styling, but you can customize them by overriding CSS variables:
 
 ```css
-ng-toastify {
+hey-toast {
   --success-bg-color: #178303;
   --info-bg-color: #1476cc;
   --warning-bg-color: #fbc02d;
@@ -171,8 +192,8 @@ ng-toastify {
 
 ```bash
 # Clone the repository
-git clone https://github.com/2rohityadav/ng-toastify.git
-cd ng-toastify
+git clone https://github.com/2rohityadav/hey-toast.git
+cd hey-toast
 
 # Install dependencies
 pnpm install
@@ -187,21 +208,6 @@ pnpm build
 pnpm test
 ```
 
-### Commit Convention
-
-This project uses [Conventional Commits](https://conventionalcommits.org/) for commit messages:
-
-- `feat:` New features
-- `fix:` Bug fixes
-- `docs:` Documentation changes
-- `style:` Code style changes
-- `refactor:` Code refactoring
-- `perf:` Performance improvements
-- `test:` Test changes
-- `build:` Build system changes
-- `ci:` CI/CD changes
-- `chore:` Other changes
-
 ### Release Process
 
 This project uses [semantic-release](https://github.com/semantic-release/semantic-release) for automatic versioning and publishing:
@@ -210,56 +216,6 @@ This project uses [semantic-release](https://github.com/semantic-release/semanti
 - Version is determined by commit messages
 - Changelog is automatically generated
 - Package is automatically published to npm
-
-### Setting Up NPM Token for Automated Releases
-
-To enable automatic publishing to npm, you need to add an NPM token to your GitHub repository:
-
-#### 1. Create an NPM Token
-
-1. **Go to npmjs.com** and log in to your account
-2. **Click on your profile picture** (top right corner)
-3. **Select "Access Tokens"** from the dropdown menu
-4. **Click "Generate New Token"** button
-5. **Fill in the form**:
-   - **Token name**: `ng-toastify-release` (or any name you prefer)
-   - **Token type**: Select **"Automation"** (important for CI/CD)
-   - **Expiration**: Choose your preferred expiration (recommend 1 year)
-6. **Click "Generate Token"**
-7. **Copy the token** immediately (starts with `npm_`)
-
-#### 2. Add Token to GitHub Repository
-
-1. **Go to your GitHub repository**: `https://github.com/yourusername/ng-toastify`
-2. **Click "Settings"** tab
-3. **Go to "Secrets and variables"** → **"Actions"**
-4. **Click "New repository secret"**
-5. **Fill in**:
-   - **Name**: `NPM_TOKEN`
-   - **Secret**: Paste your npm token
-6. **Click "Add secret"**
-
-#### 3. Verify Setup
-
-Once the token is added, any push to the `main` branch will:
-- ✅ Build the package
-- ✅ Run tests
-- ✅ Publish to npm automatically
-- ✅ Create GitHub releases
-- ✅ Update version numbers
-
-#### 4. Commit Message Format
-
-Use conventional commit messages to control versioning:
-
-- `feat:` - New features (minor version bump)
-- `fix:` - Bug fixes (patch version bump)
-- `BREAKING CHANGE:` - Breaking changes (major version bump)
-- `docs:` - Documentation changes (no version bump)
-- `style:` - Code style changes (no version bump)
-- `refactor:` - Code refactoring (no version bump)
-- `test:` - Test changes (no version bump)
-- `chore:` - Maintenance tasks (no version bump)
 
 ## Contributing
 

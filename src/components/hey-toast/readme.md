@@ -1,15 +1,10 @@
-# ng-toastify-stencil
-
-
+# hey-toast
 
 <!-- Auto Generated Below -->
-
 
 ## Methods
 
 ### `Toast(toast: ToastOptions) => Promise<void>`
-
-
 
 #### Parameters
 
@@ -21,20 +16,18 @@
 
 Type: `Promise<void>`
 
-
-
-
 ## Dependencies
 
 ### Depends on
 
-- [ng-toastify-content](../ng-toastify-content)
+- [hey-toast-content](../hey-toast-content)
 
 ### Graph
+
 ```mermaid
 graph TD;
-  ng-toastify --> ng-toastify-content
-  style ng-toastify fill:#f9f,stroke:#333,stroke-width:4px
+  hey-toast --> hey-toast-content
+  style hey-toast fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
