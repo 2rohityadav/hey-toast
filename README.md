@@ -1,5 +1,14 @@
 # ng-toastify-stencil
 
+[![npm](https://img.shields.io/npm/v/ng-toastify-stencil)](https://www.npmjs.com/package/ng-toastify-stencil)
+[![npm](https://img.shields.io/npm/dt/ng-toastify-stencil)](https://www.npmjs.com/package/ng-toastify-stencil)
+[![Package Size](https://img.shields.io/badge/Package%20Size-15.2%20kB-blue)](https://www.npmjs.com/package/ng-toastify-stencil)
+[![Bundle size](https://pkg-size.dev/badge/bundle/15200)](https://pkg-size.dev/ng-toastify-stencil)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Stencil](https://img.shields.io/badge/Built%20with-Stencil-16161d.svg)](https://stenciljs.com/)
+[![Angular](https://img.shields.io/badge/Angular-Ready-red.svg)](https://angular.io/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue.svg)](https://www.typescriptlang.org/)
+
 A beautiful, customizable toast notification library built with Stencil.js for Angular applications.
 
 ## Features
