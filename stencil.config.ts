@@ -10,7 +10,7 @@ declare const process: {
 process.env.NODE_ENV = 'production';
 
 export const config: Config = {
-  namespace: 'ng-toastify-stencil',
+  namespace: 'ng-toastify',
   outputTargets: [
     {
       type: 'dist',

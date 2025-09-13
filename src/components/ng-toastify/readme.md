@@ -28,13 +28,13 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [ng-toastify-stencil-content](../ng-toastify-stencil-content)
+- [ng-toastify-content](../ng-toastify-content)
 
 ### Graph
 ```mermaid
 graph TD;
-  ng-toastify-stencil --> ng-toastify-stencil-content
-  style ng-toastify-stencil fill:#f9f,stroke:#333,stroke-width:4px
+  ng-toastify --> ng-toastify-content
+  style ng-toastify fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------

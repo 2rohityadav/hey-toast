@@ -16,33 +16,28 @@ export interface ToastConfig {
 // Auto-register web components when this module is imported
 const registerWebComponents = async () => {
   // Only register if not already registered
-  if (customElements.get('ng-toastify-stencil') && customElements.get('ng-toastify-stencil-content')) {
+  if (customElements.get('ng-toastify') && customElements.get('ng-toastify-content')) {
     return;
   }
 
-  // Try to import web components automatically using dynamic import
-  const paths = [
-    'ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js',
-    './ng-toastify-stencil.esm.js',
-    '../ng-toastify-stencil.esm.js',
-    '/node_modules/ng-toastify-stencil/dist/ng-toastify-stencil/ng-toastify-stencil.esm.js'
-  ];
+  // If we're in a browser environment, wait for components to be loaded by the main app
+  if (typeof window !== 'undefined') {
+    let attempts = 0;
+    const maxAttempts = 200; // 20 seconds max wait
 
-  let imported = false;
-  for (const path of paths) {
-    try {
-      // Use dynamic import with string path to avoid TypeScript module resolution
-      await import(/* webpackIgnore: true */ path);
-      imported = true;
-      break;
-    } catch (e) {
-      // Continue to next path
+    while (attempts < maxAttempts && !customElements.get('ng-toastify')) {
+      await new Promise(resolve => setTimeout(resolve, 100));
+      attempts++;
+    }
+
+    if (customElements.get('ng-toastify')) {
+      console.log('ng-toastify: Components successfully registered');
+      return;
     }
   }
 
-  if (!imported) {
-    console.warn('Ng-toastify-stencil: Could not auto-import web components. Please ensure ng-toastify-stencil is properly installed.');
-  }
+  // If components are still not found, log a helpful message
+  console.warn('ng-toastify: Components not found. Make sure defineCustomElements() is called in your app.config.ts');
 };
 
 // Register components immediately when this module is imported
@@ -64,10 +59,10 @@ export class ToastService {
   }
 
   private initializeToast() {
-    this.toastElement = document.querySelector('ng-toastify-stencil');
+    this.toastElement = document.querySelector('ng-toastify');
 
     if (!this.toastElement) {
-      this.toastElement = document.createElement('ng-toastify-stencil');
+      this.toastElement = document.createElement('ng-toastify');
       document.body.appendChild(this.toastElement);
     }
   }

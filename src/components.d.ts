@@ -5,13 +5,13 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { ToastOptions } from "./components/ng-toastify-stencil/ng-toastify-stencil";
-export { ToastOptions } from "./components/ng-toastify-stencil/ng-toastify-stencil";
+import { ToastOptions } from "./components/ng-toastify/ng-toastify";
+export { ToastOptions } from "./components/ng-toastify/ng-toastify";
 export namespace Components {
-    interface NgToastifyStencil {
+    interface NgToastify {
         "Toast": (toast: ToastOptions) => Promise<void>;
     }
-    interface NgToastifyStencilContent {
+    interface NgToastifyContent {
         /**
           * @default true
          */
@@ -34,27 +34,27 @@ export namespace Components {
     }
 }
 declare global {
-    interface HTMLNgToastifyStencilElement extends Components.NgToastifyStencil, HTMLStencilElement {
+    interface HTMLNgToastifyElement extends Components.NgToastify, HTMLStencilElement {
     }
-    var HTMLNgToastifyStencilElement: {
-        prototype: HTMLNgToastifyStencilElement;
-        new (): HTMLNgToastifyStencilElement;
+    var HTMLNgToastifyElement: {
+        prototype: HTMLNgToastifyElement;
+        new (): HTMLNgToastifyElement;
     };
-    interface HTMLNgToastifyStencilContentElement extends Components.NgToastifyStencilContent, HTMLStencilElement {
+    interface HTMLNgToastifyContentElement extends Components.NgToastifyContent, HTMLStencilElement {
     }
-    var HTMLNgToastifyStencilContentElement: {
-        prototype: HTMLNgToastifyStencilContentElement;
-        new (): HTMLNgToastifyStencilContentElement;
+    var HTMLNgToastifyContentElement: {
+        prototype: HTMLNgToastifyContentElement;
+        new (): HTMLNgToastifyContentElement;
     };
     interface HTMLElementTagNameMap {
-        "ng-toastify-stencil": HTMLNgToastifyStencilElement;
-        "ng-toastify-stencil-content": HTMLNgToastifyStencilContentElement;
+        "ng-toastify": HTMLNgToastifyElement;
+        "ng-toastify-content": HTMLNgToastifyContentElement;
     }
 }
 declare namespace LocalJSX {
-    interface NgToastifyStencil {
+    interface NgToastify {
     }
-    interface NgToastifyStencilContent {
+    interface NgToastifyContent {
         /**
           * @default true
          */
@@ -76,16 +76,16 @@ declare namespace LocalJSX {
         "typeTextColor"?: string;
     }
     interface IntrinsicElements {
-        "ng-toastify-stencil": NgToastifyStencil;
-        "ng-toastify-stencil-content": NgToastifyStencilContent;
+        "ng-toastify": NgToastify;
+        "ng-toastify-content": NgToastifyContent;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "ng-toastify-stencil": LocalJSX.NgToastifyStencil & JSXBase.HTMLAttributes<HTMLNgToastifyStencilElement>;
-            "ng-toastify-stencil-content": LocalJSX.NgToastifyStencilContent & JSXBase.HTMLAttributes<HTMLNgToastifyStencilContentElement>;
+            "ng-toastify": LocalJSX.NgToastify & JSXBase.HTMLAttributes<HTMLNgToastifyElement>;
+            "ng-toastify-content": LocalJSX.NgToastifyContent & JSXBase.HTMLAttributes<HTMLNgToastifyContentElement>;
         }
     }
 }

@@ -10,11 +10,11 @@ export interface ToastOptions {
 }
 
 @Component({
-  tag: 'ng-toastify-stencil',
-  styleUrl: 'ng-toastify-stencil.css',
+  tag: 'ng-toastify',
+  styleUrl: 'ng-toastify.css',
   shadow: true,
 })
-export class NgToastifyStencil {
+export class NgToastify {
   rootElement: HTMLElement;
   @State() timeOut: number = 300000;
   @State() position: string = 'top-right';
@@ -83,7 +83,7 @@ export class NgToastifyStencil {
       this.position = toast['position'];
     }
 
-    let toastContent = document.createElement('ng-toastify-stencil-content');
+    let toastContent = document.createElement('ng-toastify-content');
     this.rootElement.append(toastContent);
     this.toastContentComponent(toast, toastContent);
 

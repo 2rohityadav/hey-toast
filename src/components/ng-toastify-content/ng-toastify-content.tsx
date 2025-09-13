@@ -1,11 +1,11 @@
 import { Component, Host, h, Prop } from '@stencil/core';
 
 @Component({
-  tag: 'ng-toastify-stencil-content',
-  styleUrl: 'ng-toastify-stencil-content.css',
+  tag: 'ng-toastify-content',
+  styleUrl: 'ng-toastify-content.css',
   shadow: false,
 })
-export class NgToastifyStencilContent {
+export class NgToastifyContent {
   el: HTMLElement;
   @Prop() toastTitle: string = 'Success';
   @Prop() description: string = 'success message';
@@ -20,7 +20,7 @@ export class NgToastifyStencilContent {
     event.preventDefault();
     event.stopPropagation();
 
-    const toastElement = event.target.closest('ng-toastify-stencil-content');
+    const toastElement = event.target.closest('ng-toastify-content');
     if (toastElement) {
       const toastContent = toastElement.querySelector('.toast-content');
       if (toastContent) {

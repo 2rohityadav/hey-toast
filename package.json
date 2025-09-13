@@ -1,7 +1,7 @@
 {
   "name": "ng-toastify-stencil",
-  "version": "0.0.7",
-  "description": "Ng-toastify-stencil notification - web component - Built With Stenciljs",
+  "version": "0.0.9",
+  "description": "ng-toastify notification - web component - Built With Stenciljs",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
@@ -9,7 +9,7 @@
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/ng-toastify-stencil/ng-toastify-stencil.esm.js",
+  "unpkg": "dist/ng-toastify/ng-toastify.esm.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/2rohityadav/ng-toastify.git"

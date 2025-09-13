@@ -22,13 +22,13 @@
 
 ### Used by
 
- - [ng-toastify-stencil](../ng-toastify-stencil)
+ - [ng-toastify](../ng-toastify)
 
 ### Graph
 ```mermaid
 graph TD;
-  ng-toastify-stencil --> ng-toastify-stencil-content
-  style ng-toastify-stencil-content fill:#f9f,stroke:#333,stroke-width:4px
+  ng-toastify --> ng-toastify-content
+  style ng-toastify-content fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
 ----------------------------------------------
