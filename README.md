@@ -9,6 +9,10 @@
 
 A beautiful, customizable toast notification library built with Stencil.js. **Raise a toast to better notifications** - works with any framework that supports web components.
 
+## 🚀 Live Demo
+
+🎯 **[Try the Live Demo](https://hey-toast-demo.netlify.app/)**
+
 ## Features
 
 - 🎨 **Beautiful Design** - Modern, clean toast notifications
